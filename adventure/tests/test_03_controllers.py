@@ -44,6 +44,37 @@ class TestCreateVehicleAPIView:
         response = client.post("/api/adventure/create-vehicle/", payload)
         assert response.status_code == 201
 
+class TestCreateServiceAreaAPIView:
+    def test_create(self, client, mocker):
+        mocker.patch.object(
+            models.ServiceArea.objects,
+            "create",
+            return_value=models.ServiceArea(
+                id=1, kilometer=60, gas_price=784
+            ),
+        )
+
+        payload = {"kilometer":60, "gas_price":784}
+        response = client.post("/api/adventure/create-service-area/", payload)  
+        assert response.status_code == 201
+
+@pytest.mark.skip  # Remove
+class TestGetVehicleAPIView:
+    def test_get(self, client, mocker):
+        # TODO: Implement endpoint to get full list of vehicles
+        pass
+    def test_get_by_license_plate(self, client, mocker):
+        # TODO: Implement endpoint to get vehicle data by license plate
+        pass
+
+@pytest.mark.skip  # Remove
+class TestGetServiceAreaAPIView:
+    def test_get(self, client, mocker):
+        # TODO: Implement endpoint to get full list of service areas
+        pass
+    def test_get_by_kilometer(self, client, mocker):
+        # TODO: Implement endpoint to get service area by kilometer
+        pass
 
 class TestStartJourneyAPIView:
     def test_api(self, client, mocker):
@@ -69,11 +100,3 @@ class TestStartJourneyAPIView:
         response = client.post("/api/adventure/start/", payload)
 
         assert response.status_code == 400
-
-
-@pytest.mark.skip  # Remove
-class TestStopJourneyAPIView:
-    def test_stop(self):
-        # TODO: Implement an endpoint that makes use of a StopJourney use case
-        # and tests it
-        pass

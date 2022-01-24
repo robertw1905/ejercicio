@@ -26,6 +26,28 @@ class CreateVehicleAPIView(APIView):
             status=201,
         )
 
+class CreateServiceAreaAPIView(APIView):
+    def post(self, request: Request) -> Response:
+        payload = request.data
+        left_station = models.ServiceArea.objects.get(pk=payload["left_station"]) if "left_station" in payload else None
+        right_station = models.ServiceArea.objects.get(pk=payload["right_station"]) if "right_station" in payload else None
+        service_area = models.ServiceArea.objects.create(
+            kilometer=payload["kilometer"],
+            gas_price=payload["gas_price"],
+            left_station=left_station,
+            right_station=right_station
+        )
+
+        return Response(
+            {
+                "id": service_area.id,
+                "kilometer": service_area.kilometer,
+                "gas_price": service_area.gas_price,
+                "left_station": service_area.left_station,
+                "right_station": service_area.right_station
+            },
+            status=201
+        )
 
 class StartJourneyAPIView(generics.CreateAPIView):
     serializer_class = serializers.JourneySerializer

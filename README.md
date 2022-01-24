@@ -1,33 +1,70 @@
 # Chocobo's Sanctuary
 
-Welcome to the park Chocobo's Sanctuary, where these majestic birds wander freely!
+## Parte 1
 
-As a developer we've entrusted you help us building our armored jeeps booking platform, with bird protections. It has been almost completely developed by an ex member of our team, who have had an accident... a bit unfortunate with one of the specimens of our park.
+Bienvenido al santuario de Chocobo, donde las majestuosas aves pasean libres!
 
-What he has told us is that the software was "almost" done and that any developer that knew TDD could finish it.
+Actualmente tenemos una aplicación llamada Safari, que se encarga del agendamiento de vehículos blindados y equipados con protección anti-ave. El desarrollador encargado de mantenerla se ha "enfermado" indefinidamente luego de un encuentro con una de las aves, por lo que te pedimos que si el proyecto no funciona o contiene malas prácticas intentes arreglarlo por tu cuenta, al menos los endpoints que vas a utilizar. Nos gusta seguir la regla del Boy Scout: "dejo el campamento más limpio que como lo encontré".
 
-## Your mission is:
+### Tu tarea en este proyecto es:
 
-- Clone this project
-- Disable the unit tests marked as `@pytest.mark.skip`
-- Build the functionalities needed for the app to pass all the tests executing `docker-compose run --rm test`
-- There's code that's been written way too fast and it probably doesn't meet our clean architecture, could you refactor it?
-- Send us your repository link
+- Clonar el proyecto
+- Eliminar los decoradores `@pytest.mark.skip` de los tests
+- Desarrollar las funcionalidades para que pase las pruebas ejecutando `docker-compose run --rm test`
 
-## Requirements
+### Requirements
 
 - docker
 - docker-compose
 
-## Start the project
+### Start the project
 
 `docker-compose up`
 
-### Swagger
+#### Swagger
 
 http://localhost:8000/api/schema/swagger-ui/
 
 
-### Mailhog
+#### Mailhog
 
 http://localhost:1025
+
+
+## Parte 2
+
+Hemos tenido problemas con nuestros vehículos, ha habido un aumento de casos en los que nuestros usuarios se quedan sin combustible en medio de su recorrido por nuestro parque. La distribución del parque y sus caminos fue hecha por una persona a quien le encantan los árboles de búsqueda binaria, por lo que un mapa se vería de la siguiente forma.
+  
+![mapa safari](https://i.imgur.com/noULk0A.png)
+  
+  
+Notar que cada nodo puede tener 2 nodos "hijos": el de la izquierda con un valor inferior y el de la derecha con valor superior. Todos los puntos conectados a la izquierda de un nodo son inferiores a éste, y todos los conectados a la derecha son superiores. Básicamente comportándonse como un árbol binario de búsqueda.  
+  
+Cada punto marcado por una sombrilla y un símbolo de gasolinera es una zona de descanso.  
+- Todas las zonas de descanso se identifican por el kilómetro en cual se encuentra.
+- Las zonas de descanso tienen estaciones para cargar combustible con precios distintos.
+- Los caminos se pueden considerar como líneas rectas para efectos de consumo de combustible.
+- Todos los vehículos tienen rendimiento de combustible y tamaño de estanque distintos.
+- Hay vehículos que no van a poder completar recorridos sin parar a cargar combustible.
+- La implementación de esto se encuentra en el proyecto Safari, app 'adventure'.
+  
+## Tu tarea:
+  
+Necesitamos que desarrolles un script o una API separada del proyecto safari, en el lenguaje o framework que prefieras, que cumpla con las siguientes funciones:  
+- Obtener la ruta de un punto A a un punto B cualquiera, listando las áreas de servicio por las cual se debería pasar.
+- Calcular dónde debe uno cargar bencina para que una ruta completa (desde un punto A a un punto B cualquiera) sea lo más barata posible. Considerar lo siguiente
+    - La función recibe: punto de inicio, punto de término y patente del vehículo.
+    - Un viaje puede comenzar y terminar en cualquier punto de descanso, sin devolverse.
+    - Todos los vehículos comienzan con el estanque lleno.
+    - No todos los vehículos tienen el mismo rendimiento ni tamaño de estanque.
+    - No todos los vehículos van a tener rendimiento y estanque suficiente como para realizar un recorrido completo sin cargar combustible.
+    - No es necesario realizar carga completa del estanque cuando uno pasa por un punto de descanso, se puede cargar lo suficiente como para sólo llegar hasta el siguiente.
+    - Todas las áreas de servicio tienen precios de combustible distintos.
+
+# Para conocerte mejor
+
+1. Cuáles crees que son los aspectos más importantes al momento de hacer Code Review
+2. Has trabajado con control de versiones? Cuál ha sido el flujo que has utilizado? Por favor explicar.
+3. Cuál ha sido tu experiencia utilizando herramientas fuera de desarrollo del código mismo? (AWS, GCP, VPS, Docker, etc.)
+4. Tienes algún servicio en la nube favorito? Cuál y por qué?
+5. Has tenido experiencia con microservicios? En caso de que la tengas, podrías explicar por qué en ese caso fue mejor un microservicio que otro tipo de arquitectura?

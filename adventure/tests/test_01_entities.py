@@ -2,6 +2,8 @@ from datetime import date
 
 import pytest
 
+from django.core.exceptions import ValidationError
+
 from adventure import models
 
 
@@ -21,6 +23,24 @@ def tesla(car):
         name="Tesla", passengers=3, vehicle_type=car, number_plate="AA-12-34"
     )
 
+@pytest.fixture
+def service_area_center():
+    return models.ServiceArea(
+        kilometer=60, gas_price=894
+    )
+
+@pytest.fixture
+def service_area_left():
+    return models.ServiceArea(
+        kilometer=40, gas_price=894
+    )
+
+@pytest.fixture
+def service_area_right():
+    return models.ServiceArea(
+        kilometer=90, gas_price=894
+    )
+
 
 class TestVehicle:
     def test_capacity_greater_than_passengers(self, car):
@@ -31,24 +51,7 @@ class TestVehicle:
         vehicle = models.Vehicle(vehicle_type=car, passengers=10)
         assert not vehicle.can_start()
 
-    @pytest.mark.skip  # Remove
     def test_vehicle_distribution(self, car, van):
-        # TODO: implement a method called "get_distribution" that returns a matrix filled of booleans
-        # with the "standard distribution" in a vehicle, from top to bottom and left to right.
-        # A Vehicle can have "n" rows with a maximum of 2 passengers per row.
-        # The rows number depends on the vehicle max capacity.
-        #
-        # e.g: for 3 passengers
-        # [
-        #     [ True, True],
-        #     [ True, False],
-        # ]
-        # for 5 passengers
-        # [
-        #     [ True, True],
-        #     [ True, True],
-        #     [ True, False],
-        # ]
         vehicle = models.Vehicle(vehicle_type=car, passengers=3)
         distribution_expected = [[True, True], [True, False]]
         assert vehicle.get_distribution() == distribution_expected
@@ -69,11 +72,23 @@ class TestVehicle:
         assert not models.validate_number_plate("AA1234")
         assert not models.validate_number_plate("AA 12 34")
 
+class TestServiceArea:
+    def test_wrong_left_placement(self, service_area_center, service_area_right):
+        station = service_area_center
+        station.left_station = service_area_right
 
-@pytest.mark.skip  # Remove
+        with pytest.raises(ValidationError):
+            service_area_center.clean()
+
+    def test_wrong_right_placement(self, service_area_center, service_area_left):
+        station = service_area_center
+        station.right_station = service_area_left
+
+        with pytest.raises(ValidationError):
+            service_area_center.clean()
+
+
 class TestJourney:
-    # TODO: implement "is_finished" method
-    # a finished journey depends on the end value
     def test_is_finished(self, tesla):
         journey = models.Journey(start=date.today(), end=date.today(), vehicle=tesla)
         assert journey.is_finished()
