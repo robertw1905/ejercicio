@@ -52,10 +52,11 @@ Cada punto marcado por una sombrilla y un símbolo de gasolinera es una zona de 
   
 Necesitamos que desarrolles un script o una API separada del proyecto safari, en el lenguaje o framework que prefieras, que cumpla con las siguientes funciones:  
 - Obtener la ruta de un punto A a un punto B cualquiera, listando las áreas de servicio por las cual se debería pasar.
-- Calcular dónde debe uno cargar bencina para que una ruta completa (desde un punto A a un punto B cualquiera) sea lo más barata posible. Considerar lo siguiente
+- Calcular en qué puntos y cuánto combustible debe uno cargar para que una ruta completa (desde un punto A a un punto B cualquiera) sea lo más barata posible. Considerar lo siguiente
     - La función recibe: punto de inicio, punto de término y patente del vehículo.
+    - Debe retornar una lista con los puntos donde parar y cuántos litros cargar.
     - Un viaje puede comenzar y terminar en cualquier punto de descanso, sin devolverse.
-    - Todos los vehículos comienzan con el estanque lleno.
+    - Todos los vehículos comienzan con el estanque lleno, no es necesario devolverlos llenos.
     - No todos los vehículos tienen el mismo rendimiento ni tamaño de estanque.
     - No todos los vehículos van a tener rendimiento y estanque suficiente como para realizar un recorrido completo sin cargar combustible.
     - No es necesario realizar carga completa del estanque cuando uno pasa por un punto de descanso, se puede cargar lo suficiente como para sólo llegar hasta el siguiente.
