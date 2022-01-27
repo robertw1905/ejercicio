@@ -21,6 +21,18 @@ Actualmente tenemos una aplicación llamada Safari, que se encarga del agendamie
 
 `docker-compose up`
 
+### Create migrations
+
+`docker-compose run web python manage.py makemigrations`
+
+### Run migrations
+
+`docker-compose run web python manage.py migrate`
+
+### Migraciones fallan?
+
+Google es tu amigo, y stackoverflow también.
+
 #### Swagger
 
 http://localhost:8000/api/schema/swagger-ui/
