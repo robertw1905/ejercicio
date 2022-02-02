@@ -10,6 +10,7 @@ Actualmente tenemos una aplicación llamada Safari, que se encarga del agendamie
 
 - Clonar el proyecto
 - Eliminar los decoradores `@pytest.mark.skip` de los tests
+- Implementar los tests que están con TO-DO
 - Desarrollar las funcionalidades para que pase las pruebas ejecutando `docker-compose run --rm test`
 
 ### Requirements
@@ -65,9 +66,9 @@ Cada punto marcado por una sombrilla y un símbolo de gasolinera es una zona de 
 Necesitamos que desarrolles un script o una API separada del proyecto safari, en el lenguaje o framework que prefieras, que cumpla con las siguientes funciones:  
 - Obtener la ruta de un punto A a un punto B cualquiera, listando las áreas de servicio por las cual se debería pasar.
 - Calcular en qué puntos y cuánto combustible debe uno cargar para que una ruta completa (desde un punto A a un punto B cualquiera) sea lo más barata posible. Considerar lo siguiente
-    - La función recibe: punto de inicio, punto de término y patente del vehículo.
+    - La función recibe: punto de inicio (int que corresponde al km), punto de término (int que corresponde al km) y patente del vehículo.
     - Debe retornar una lista con los puntos donde parar y cuántos litros cargar.
-    - Un viaje puede comenzar y terminar en cualquier punto de descanso, sin devolverse.
+    - Un viaje puede comenzar y terminar en cualquier punto de descanso, sin devolverse por el mismo camino.
     - Todos los vehículos comienzan con el estanque lleno, no es necesario devolverlos llenos.
     - No todos los vehículos tienen el mismo rendimiento ni tamaño de estanque.
     - No todos los vehículos van a tener rendimiento y estanque suficiente como para realizar un recorrido completo sin cargar combustible.
