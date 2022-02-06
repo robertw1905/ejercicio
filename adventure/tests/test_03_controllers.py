@@ -58,7 +58,6 @@ class TestCreateServiceAreaAPIView:
         response = client.post("/api/adventure/create-service-area/", payload)  
         assert response.status_code == 201
 
-@pytest.mark.skip  # Remove
 class TestGetVehicleAPIView:
     def test_get(self, client, mocker):
         # TODO: Implement endpoint to get full list of vehicles
@@ -67,7 +66,6 @@ class TestGetVehicleAPIView:
         # TODO: Implement endpoint to get vehicle data by license plate
         pass
 
-@pytest.mark.skip  # Remove
 class TestGetServiceAreaAPIView:
     def test_get(self, client, mocker):
         # TODO: Implement endpoint to get full list of service areas
