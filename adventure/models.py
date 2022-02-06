@@ -40,6 +40,14 @@ class Vehicle(models.Model):
 
         return seat_distribution
 
+    def validate_number_plate(self):
+        exp = r'[A-Z]{2}(?:[-|\s])?[0-9]{2}(?:[-|\s])?[0-9]{2}'
+        res = re.findall(exp, self.number_plate)
+        if (len(res)>0):
+            return True
+        else:
+            return False
+
 class Journey(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT)
     start = models.DateField()

@@ -60,17 +60,23 @@ class TestVehicle:
         distribution_expected = [[True, True], [True, True], [True, False]]
         assert vehicle.get_distribution() == distribution_expected
 
-    @pytest.mark.skip  # Remove
-    def test_valid_number_plate(self):
+    @pytest.mark.parametrize(
+        "p_number_plate, expected",
+        [
+        ("AA-12-34", True),
+        ("AA-BB-34", False),
+        ("12-34-56", False),
+        ("AA1234", True),
+        ("AA 12 34", True)
+        ]
+    )
+    def test_valid_number_plate(self, p_number_plate, expected):
         # TODO: implement a function called "validate_number_plate"
         # a valid number plate consists of three pairs of alphanumeric chars separated by hyphen
         # the first pair must be letters and the rest must be numbers
         # e.g: AA-12-34
-        assert models.validate_number_plate("AA-12-34")
-        assert not models.validate_number_plate("AA-BB-34")
-        assert not models.validate_number_plate("12-34-56")
-        assert not models.validate_number_plate("AA1234")
-        assert not models.validate_number_plate("AA 12 34")
+        vehicle = models.Vehicle(number_plate=p_number_plate)
+        assert vehicle.validate_number_plate() == expected
 
 class TestServiceArea:
     def test_wrong_left_placement(self, service_area_center, service_area_right):
