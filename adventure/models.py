@@ -54,8 +54,8 @@ class Journey(models.Model):
 class ServiceArea(models.Model):
     kilometer = models.IntegerField()
     gas_price = models.PositiveIntegerField()
-    left_station = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
-    right_station = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
+    left_station = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.SET_NULL)
+    right_station = models.ForeignKey(Journey, null=True, blank=True, on_delete=models.SET_NULL)
 
     def validate_left(self):
         if self.left_station == None:

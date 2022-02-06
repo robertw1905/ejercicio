@@ -7,6 +7,10 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
 
   mailhog:
     image: mailhog/mailhog:v1.0.0
@@ -18,7 +22,7 @@ services:
 
   web:
     << : *base
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c " python manage.py migrate && python manage.py runserver 0.0.0.0:8000 "
     volumes:
       - .:/code
     ports:
@@ -27,6 +31,6 @@ services:
       - db
       - mailhog
 
-  test:
-    << : *base
-    command: pytest
+  #test:
+    #<< : *base
+    #command: pytest
